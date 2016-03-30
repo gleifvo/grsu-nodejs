@@ -47,27 +47,29 @@
         </nav>
 
         <div class="page-header">
-            <div ng-repeat="article in articles" ng-controller="articleController">
-                <div class="row">
-                    <div class="center-block col-md-6" style="float: none;">
+            <div ng-repeat="article in articles" ng-controller="articleController" href="" ng-click="">
+                <div class="fixed-header" ng-controller="headerCtrl">
+                    <div class="row">
+                        <div class="center-block col-md-6" style="float: none;">
 
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h2 ng-click="expand(article)"> {{article.title}}</h2>
-                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" >
+                                    <h2 ng-click="expand(article);gotoAnchor(article.id)" id="anchor{{article.id}}">{{article.title}}</h2>
+                                </div>
 
-                            <div class="panel-body">
+                                <div class="panel-body">
 
-                                <span>Автор: {{article.author}}</span>
-                                <div>Дата: {{article.date}} {{article.time}}</div>
-                                <div class="text-justify text" ng-show="isCollapsed">{{article.text}}</div>
-                                <div uib-collapse="isCollapsed">
-                                    <div ng-repeat="paragraph in paragraphs">
+                                    <span>Автор: {{article.author}}</span>
+                                    <div>Дата: {{article.date}} {{article.time}}</div>
+                                    <div class="text-justify text" ng-show="isCollapsed">{{article.text}}</div>
+                                    <div uib-collapse="isCollapsed">
+                                        <div ng-repeat="paragraph in paragraphs" ng-show="!$first || !isCollapsed" >
 
-                                        <img class="pull-right p-a-10" ng-src="{{paragraph.imgsrc}}" ng-if=paragraph.imgsrc>
+                                            <img class="pull-right p-a-10" ng-src="{{paragraph.imgsrc}}" ng-if=paragraph.imgsrc>
 
-                                        <div class="text-justify" ng-class="{true: 'quote', false: 'text'}[paragraph.quote]">
-                                            {{paragraph.text}}
+                                            <div class="text-justify" ng-class="{true: 'quote', false: 'text'}[paragraph.quote]">
+                                                {{paragraph.text}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

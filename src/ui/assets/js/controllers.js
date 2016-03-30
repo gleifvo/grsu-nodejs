@@ -3,8 +3,32 @@
 var articlesModule = angular.module('articlesModule', ['ngAnimate', 'ui.bootstrap']);
 
 
+articlesModule.run(['$anchorScroll', function ($anchorScroll) {
+    $anchorScroll.yOffset = 50;
+}]).controller('headerCtrl', ['$anchorScroll', '$location', '$scope',
+  function ($anchorScroll, $location, $scope) {
+        $scope.gotoAnchor = function (x) {
+            var newHash = 'anchor' + x;
+            if ($location.hash() !== newHash) {
+                // set the $location.hash to `newHash` and
+                // $anchorScroll will automatically scroll to it
+                $location.hash('anchor' + x);
+            } else {
+                // call $anchorScroll() explicitly,
+                // since $location.hash hasn't changed
+                $anchorScroll();
+            }
+        };
+  }
+]);
 
-articlesModule.controller('articlesforDay', function ($scope, $http) {
+
+
+
+
+articlesModule.run(['$anchorScroll', function ($anchorScroll) {
+    $anchorScroll.yOffset = 50;
+}]).controller('articlesforDay', function ($scope, $http) {
 
     $scope.today = function () {
         $scope.date = new Date();
@@ -51,17 +75,21 @@ articlesModule.controller('articleController', function ($scope, $http) {
 
         var queryString = createQueryStringForArticle(item.id);
 
-        $http({
-            method: 'GET',
-            url: queryString
-        }).then(function (response) {
+        if (!$scope.paragraphs) {
 
-            $scope.paragraphs = response.data;
+            $http({
+                method: 'GET',
+                url: queryString
+            }).then(function (response) {
 
+                $scope.paragraphs = response.data;
+
+                $scope.isCollapsed = !$scope.isCollapsed;
+
+            });
+        } else {
             $scope.isCollapsed = !$scope.isCollapsed;
-
-
-        });
+        }
 
     };
 });
