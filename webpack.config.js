@@ -14,28 +14,27 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/, include: APP_DIR, loader: 'babel-loader', query: {presets: ['react']}
+                test: /\.jsx?$/, include: APP_DIR, loader: 'babel-loader', query: { presets: ['react'] }
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader", allChunks: true})
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader', allChunks: true })
             },
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader!less-loader",
+                    fallback: 'style-loader',
+                    use: 'css-loader!less-loader',
                     allChunks: true
                 })
             }
         ],
     },
     plugins: [
-        new ExtractTextPlugin({filename: 'bundle.css'}),
-        new OptimizeCssAssetsPlugin({assetNameRegExp: /\.css$/})
+        new ExtractTextPlugin({ filename: 'bundle.css' }),
+        new OptimizeCssAssetsPlugin({ assetNameRegExp: /\.css$/ })
     ],
-    watch: true,
-    devtool: "source-map",
+    devtool: 'source-map',
     resolve: {
         extensions: ['.jsx', '.js']
     }

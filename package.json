@@ -2,13 +2,11 @@
   "name": "scraper",
   "version": "1.0.0",
   "description": "s13 scraper",
-  "main": "webapp.js",
   "scripts": {
     "test": "mocha",
-    "start": "node src/webapp.js",
-    "debug": "node-debug src/webapp.js",
-    "jscs": "jscs src/*.js src/server/*.js test/*.js",
-    "build": "webpack"
+    "start": "yarn build && node index.js",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "license": "ISC",
   "repository": {
@@ -40,6 +38,7 @@
     "redux-logger": "^2.7.4",
     "redux-saga": "^0.14.3",
     "request": "*",
+    "serve": "^6.0.6",
     "webpack": "^2.2.0-rc.1"
   },
   "devDependencies": {
